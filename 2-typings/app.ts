@@ -38,18 +38,13 @@ function toWords(number: string | number, asOrdinal: boolean): string {
   return asOrdinal ? makeOrdinal(words) : words;
 }
 
-function generateWords(number: number): string {
+function generateWords(number: number, words?: string [] = []): string {
   let remainder: number = 0;
   let word: string = '';
-  let words: string[] = arguments[1] || [];
 
   // We’re done
   if (number === 0) {
     return !words ? 'zero' : words.join(' ').replace(/,$/, '');
-  }
-  // First run
-  if (!words) {
-    words = [];
   }
   // If negative, prepend “minus”
   if (number < 0) {
