@@ -1,7 +1,7 @@
 class ListNode {
 	constructor (public key: string, public value: any, public next: ListNode | null = null) {}
 
-	addNode(key: string, value: string) {
+	addNode(key: string, value: string): void {
 		if (!this.next) {
 			this.next = new ListNode(key, value)
 		} else {
@@ -19,9 +19,9 @@ class ListNode {
 }
 
 class Bucket {
-	constructor (private firstNode: ListNode | null = null) {}
+	private firstNode: ListNode | null = null
 
-	addItem(key: string, value: string): this {
+	addItem(key: string, value: any): this {
 		if (!this.firstNode) {
 			this.firstNode = new ListNode(key, value);
 		} else {
@@ -30,7 +30,7 @@ class Bucket {
 		return this;
 	}
 
-	getItem(key: string) {
+	getItem(key: string): any {
 		if (!this.firstNode) {
 			return null
 		}
@@ -45,7 +45,7 @@ class Bucket {
 		return null
 	}
 
-	deleteItem(key: string) {
+	deleteItem(key: string): boolean {
 		if (!this.firstNode) {
 			return false
 		}
@@ -66,13 +66,16 @@ class Bucket {
 	}
 }
 
-class HashMap {
-	private _items: Record<number, Bucket>;
+interface IHashMap {
+	set(key: string, value: any): void;
+	delete(key: string): boolean;
+	get(key: string, value: any): any;
+	clear() : void;
+}
 
-	constructor () {
-		this._items = {};
-	}
-	
+class HashMap implements IHashMap {
+	private _items: Record<number, Bucket> = {};
+
 	set(key: string, value: any) {
 		const hash = this._makeHash(key);
 		if (this._items[hash]) {
@@ -82,17 +85,17 @@ class HashMap {
 		}
 	}
 
-	delete(key: string) {
+	delete(key: string): boolean {
 		const hash = this._makeHash(key);
 
 		if (this._items[hash]) {
-			this._items[hash].deleteItem(key)
+			return this._items[hash].deleteItem(key)
 		} else {
 			return false
 		}
 	}
 
-	get(key: string) {
+	get(key: string): any {
 		const hash = this._makeHash(key);
 
 		if (this._items[hash]) {
@@ -102,7 +105,7 @@ class HashMap {
 		}
 	}
 
-	clear() {
+	clear(): void {
 		this._items = {};
 	}
 
