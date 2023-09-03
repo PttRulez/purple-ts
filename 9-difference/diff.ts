@@ -3,7 +3,7 @@ const getKeys = Object.keys as <T extends object>(obj: T) => Array<keyof T>
 function exclude<T extends object, K extends object> (a: T,b: K):  Pick<T, Exclude<keyof T, keyof K>> {
 	const bKeys = getKeys(b);
 	const aKeys = getKeys(a);
-	const finalKeys = aKeys.filter(key => !bKeys.includes(key))
+	const finalKeys = aKeys.filter(key => !bKeys.includes(key as any))
 
 	const result = {} as T
 	for (const key of finalKeys) {
