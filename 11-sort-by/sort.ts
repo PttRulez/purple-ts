@@ -1,5 +1,14 @@
 import sortBy from 'sort-by';
 
+interface IUser {
+	id: number;
+	name: string;
+	age: string;
+	email: {
+		primary: string;
+	}
+}
+
 const users = [{
 	id: 7,
 	name: 'Foo',
@@ -17,4 +26,4 @@ const users = [{
 	email: { primary: 'bar@email.com' }
 }];
 
-console.log(users.sort(sortBy('name', 'age')));
+console.log(users.sort(sortBy<IUser>('name', 'age')));

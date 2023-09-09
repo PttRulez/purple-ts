@@ -1,7 +1,7 @@
 function allowFunc(checkFunc: (a: number) => boolean) {
 	return (
-		target: Object,
-		propertyKey: string | symbol,
+		target: any,
+		propertyKey: any,
 	) => {
 		let value: number;
 
